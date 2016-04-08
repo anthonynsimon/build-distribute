@@ -12,7 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 
 class InstallLinkController extends Controller
-{	
+{
+
 	public function getAwsPlist (Request $request, $buildId, $token)
 	{
 		$urldecoded = str_replace("+", "/", $token);
@@ -70,7 +71,7 @@ class InstallLinkController extends Controller
 		$contents = $this->fillPlist($data);
 		
 		// Upload to S3, overwrite old plist
-		$s3Object = AwsS3Service::uploadObject($build->installFolder, $build->installFileName.'.plist', $contents);
+		$s3Object = AwsS3Service::uploadObjectWithBody($build->installFolder, $build->installFileName.'.plist', $contents);
 		
 		return $s3Object;
 	}
