@@ -50,7 +50,7 @@
 							@if ($buildPlatform == 'android')
 							<a class="btn btn-success btn-sm" href="{!!url('/downloads/builds/'.$build->id)!!}">Install</a>
 							@elseif ($buildPlatform == 'iphone')
-							<a class="btn btn-success btn-sm" href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.$build->id.'/token/'.ViewService::generateUrlSafeToken())!!}">Install</a>
+							<a class="btn btn-success btn-sm" href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.ViewService::generateUrlSafeToken($build->id))!!}">Install</a>
 							@endif
 						</td>
 					</tr>

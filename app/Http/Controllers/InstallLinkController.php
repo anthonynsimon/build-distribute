@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Config;
-use Hash;
+use App\Helpers\BuildTokenService;
 use Response;
 use App\Helpers\AwsS3Service;
 use App\Build;
@@ -14,13 +13,11 @@ use Illuminate\Contracts\Auth\Guard;
 class InstallLinkController extends Controller
 {
 
-	public function getAwsPlist (Request $request, $buildId, $token)
+	public function getAwsPlist (Request $request, $token)
 	{
-		$urldecoded = str_replace("+", "/", $token);
-		$urldecoded = str_replace("-", "\\", $urldecoded);
-		$valid = Hash::check(Config::get('app.key'), $urldecoded);
+		$buildId = BuildTokenService::validateTokenAndGetBuildId($token);
 				
-		if (!$valid) {
+		if (!$buildId) {
 			abort(403);
 		}
 		

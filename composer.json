@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "tymon/jwt-auth": "0.5.*",
 		"aws/aws-sdk-php-laravel": "~3.0",
-		"guzzlehttp/guzzle": "~6.0"
+		"guzzlehttp/guzzle": "~6.0",
+        "firebase/php-jwt": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

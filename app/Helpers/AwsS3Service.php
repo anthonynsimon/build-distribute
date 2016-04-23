@@ -24,7 +24,7 @@ class AwsS3Service
 			abort(500);
 		}
 		
-        return $presignedUrl;
+		return $presignedUrl;
 	}
 	
 	public static function uploadObjectWithBody($folder, $file, $body)

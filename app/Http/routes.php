@@ -30,7 +30,7 @@ Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
 // iOS doesn't hold session cookies for retrieving the plist
 Route::group(['middleware' => ['force.ssl']], function () {
 	// Route cannot contain query string, token must be a nested route
-	Route::get('/downloads/plist/{buildId}/token/{token}', 'InstallLinkController@getAwsPlist');
+	Route::get('/downloads/plist/{token}', 'InstallLinkController@getAwsPlist');
 });
 
 // Admin only routes
