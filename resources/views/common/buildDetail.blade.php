@@ -50,7 +50,7 @@
 				</table>
 			</div>
 		</div>
-		<div class="card-footer text-muted">Received at {{date_format($build->created_at, 'g:ia \o\n l jS F Y')}}</div>
+		<div class="card-footer text-muted">Received at {{date_format($build->created_at, 'G:i \o\n l jS F Y')}}</div>
 	</div>
 @else
 <div class="card card-inverse card-danger">
