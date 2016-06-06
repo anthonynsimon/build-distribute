@@ -11,7 +11,7 @@
 							class="btn btn-success btn-sm">
 							Install
 						</a>
-						@elseif (strtolower($build->platform) == 'iphone')
+						@elseif (strtolower($build->platform) == 'ios')
 						<a href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.ViewService::generateUrlSafeToken($build->id))!!}" 
 							class="btn btn-success btn-sm">
 							Install

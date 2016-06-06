@@ -40,6 +40,15 @@ class ViewServiceProvider extends ServiceProvider
 	{
 		return BuildTokenService::generateBuildToken($buildId);
 	}
+	
+	public static function getPlatform($key) {
+		$mappings = array(
+			'iphone' => 'ios',
+			'ipad' => 'ios'
+		);
+		
+    return $mappings[strtolower($key)];
+  } 
 
 	public function register()
 	{

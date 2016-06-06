@@ -12,7 +12,7 @@
 						<input type="radio" name="options" id="all" autocomplete="off" checked>All</input>
 					</label>
 					<label class="btn btn-secondary-outline btn-sm white-outline ">
-						<input type="radio" name="options" id="iphone" autocomplete="off">iOS</input>
+						<input type="radio" name="options" id="ios" autocomplete="off">iOS</input>
 					</label>
 					<label class="btn btn-secondary-outline btn-sm white-outline ">
 						<input type="radio" name="options" id="android" autocomplete="off">Android</input>
@@ -38,7 +38,7 @@
 				<tbody class="text-xs-center">
 				@if (isset($builds) && count($builds) > 0)
 					@foreach ($builds as $key=>$build)
-					<?php $buildPlatform = strtolower($build->platform); ?>
+					<?php $buildPlatform = ViewService::getPlatform($build->platform); ?>
 					<tr id="{{$buildPlatform}}">
 						<td>{{$build->buildNumber or 'N/A'}}</td>
 						<td>{{$build->revision or 'N/A'}}</td>
@@ -49,7 +49,7 @@
 						<td>
 							@if ($buildPlatform == 'android')
 							<a class="btn btn-success btn-sm" href="{!!url('/downloads/builds/'.$build->id)!!}">Install</a>
-							@elseif ($buildPlatform == 'iphone')
+							@elseif ($buildPlatform == 'ios')
 							<a class="btn btn-success btn-sm" href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.ViewService::generateUrlSafeToken($build->id))!!}">Install</a>
 							@endif
 						</td>
