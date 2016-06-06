@@ -44,7 +44,9 @@ class ViewServiceProvider extends ServiceProvider
 	public static function getPlatform($key) {
 		$mappings = array(
 			'iphone' => 'ios',
-			'ipad' => 'ios'
+			'ipad' => 'ios',
+			'ios' => 'ios',
+			'android' => 'android'
 		);
 		
     return $mappings[strtolower($key)];
