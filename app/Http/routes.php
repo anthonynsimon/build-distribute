@@ -11,6 +11,9 @@ Route::group(['middleware' => ['web', 'force.ssl']], function () {
 	Route::post('/login', 'Auth\AuthController@postLogin');
 	Route::get('/register', 'Auth\AuthController@getRegister');
 	Route::post('/register', 'Auth\AuthController@postRegister');
+
+	Route::get('/oauth2/redirect/{provider}',   ['as' => 'social.redirect',   'uses' => 'Auth\OAuth2Controller@redirectToProvider']);
+	Route::get('/oauth2/handle/{provider}',     ['as' => 'social.handle',     'uses' => 'Auth\OAuth2Controller@handleProviderCallback']);
 	
 	// Password reset
 	Route::get('password/email', 'Auth\PasswordController@getEmail');

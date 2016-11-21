@@ -71,10 +71,10 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 		
-		$adminRole = Role::where('name', '=', 'admin')->first();
+		$externalRole = Role::where('name', '=', 'externalUser')->first();
 		
-		if ($adminRole) {
-			$user->attachRole($adminRole);
+		if ($externalRole) {
+			$user->attachRole($externalRole);
 		}
 		
 		return $user;

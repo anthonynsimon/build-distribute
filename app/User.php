@@ -45,6 +45,10 @@ class User extends Authenticatable
 	public function role() {
 		return $this->belongsTo('App\Role');
 	}
+
+	public function social() {
+		return $this->hasMany('App\SocialiteUser');
+	}
 	
 	public function hasRole($roleName) {
 		if (!$roleName) {

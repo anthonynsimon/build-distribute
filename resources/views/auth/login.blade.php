@@ -1,5 +1,7 @@
 @extends('layouts.app') @section('content')
 <div class="container">
+	<a href="{{ route('social.redirect', ['provider' => 'github']) }}" class="btn btn-lg btn-primary btn-block">Login with GitHub</a>
+	
 	<form class="form-signin soft-shadow" method="POST" action="{{ url('/login') }}">
 		{!! csrf_field() !!}
 		<fieldset class="form-group">
