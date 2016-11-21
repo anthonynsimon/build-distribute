@@ -69,6 +69,7 @@ class User extends Authenticatable
 	
 	public function deleteAndCascade() {
 		$this->projectPermissions()->delete();
+		$this->social()->delete();
 		$this->delete();
 	}
 }

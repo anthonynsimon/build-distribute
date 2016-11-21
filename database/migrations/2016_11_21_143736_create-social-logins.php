@@ -15,11 +15,11 @@ class CreateSocialLogins extends Migration
         Schema::create('social_logins', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('provider', 32);
             $table->text('social_id');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // Enforce unique combination of profile id per provider to avoid id hijacking
             $table->unique(['provider', 'social_id']);
         });
