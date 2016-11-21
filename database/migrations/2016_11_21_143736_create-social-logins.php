@@ -19,6 +19,9 @@ class CreateSocialLogins extends Migration
             $table->string('provider', 32);
             $table->text('social_id');
             $table->timestamps();
+
+            // Enforce unique combination of profile id per provider to avoid id hijacking
+            $table->unique(['provider', 'social_id']);
         });
     }
 
