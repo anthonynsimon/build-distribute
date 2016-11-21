@@ -27,13 +27,20 @@ class OAuth2Controller extends Controller
             return redirect()->to('/login')->with('message', 'You did not share your profile data with our social app.');
         }
 
-        $providerUser = Socialize::with($provider)->user();
-
         // We need an email to associate to this user
-        // TODO: handle social profile id match instead of email
         $email = $providerUser->email;
         if (!$email) {
             abort(400);
+        }
+
+        // Handle case when user already has a social profile
+        // If we already have records of this social profile, try to get the associated user
+        $existingSocialUser = SocialiteUser::where('social_id', '=', $providerUser->id)->where('provider', '=', $provider)->first();
+        if (!empty($existingSocialUser)) {
+            $existingUser = $existingSocialUser->user;
+            // Only attempt to login if associated user was found
+            Auth::login($existingUser, true);
+            return redirect()->to('/projects');
         }
 
         // If a user hasn't been registered yet with this email, create one
@@ -50,7 +57,7 @@ class OAuth2Controller extends Controller
             $existingUser = $newUser;
         }
 
-        // Associate the created user with this social profile
+        // Associate the social profile the retrieved or newly created user
         $newSocialUser = new SocialiteUser;
         $newSocialUser->social_id = $providerUser->id;
         $newSocialUser->provider = $provider;
