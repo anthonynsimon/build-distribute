@@ -1,5 +1,6 @@
 @extends('layouts.app') @section('content')
 <div class="container">
+
 	<form class="form-signin soft-shadow" method="POST" action="{{ url('/login') }}">
 		{!! csrf_field() !!}
 		<fieldset class="form-group">
@@ -26,17 +27,18 @@
 			<br>
 		</fieldset>
 	</form>
+
 	<p class="text-xs-center text-muted">or</p>
-	<div class="form-signin soft-shadow"
-		<fieldset class="form-group">
-			<a href="{{ route('social.redirect', ['provider' => 'google']) }}" class="btn btn-lg btn-primary btn-block">
-				Login with Google
-			</a>
-		</fieldset>
+
+	<div class="provider-signin">
+		<a id="signin-google-link" class="img-fluid" href="{{ route('social.redirect', ['provider' => 'google']) }}">
+			<img src="/img/btn_google_signin_light_normal_web.png"></img>
+		</a>
 	</div>
 	<br />
 	<p class="text-xs-center">
 		<a class="text-muted" href="{{ url('/register') }}">Not registered yet? Sign up here</a>
 	</p>
+
 </div>
 @endsection
