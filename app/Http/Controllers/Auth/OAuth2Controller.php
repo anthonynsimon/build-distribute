@@ -27,6 +27,8 @@ class OAuth2Controller extends Controller
             return redirect()->to('/login')->with('message', 'You did not share your profile data with our social app.');
         }
 
+        $providerUser = Socialize::with($provider)->user();
+
         // We need an email to associate to this user
         $email = $providerUser->email;
         if (!$email) {
