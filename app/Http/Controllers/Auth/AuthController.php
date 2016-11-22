@@ -87,7 +87,7 @@ class AuthController extends Controller
     private function notifyRegistration($user) {
         $fromAddr = Config::get('mail.from.address');
         $fromName = Config::get('mail.from.name');
-        $toAddr = Config::get('mail.to');
+        $toAddr = explode(',', Config::get('mail.to'));
 
         // Return early if missing email from and to addresses
         if (empty($fromAddr) || empty($toAddr)) {
@@ -99,7 +99,8 @@ class AuthController extends Controller
 
         Mail::send('emails.signinNotification', $data, function ($message) use($fromAddr, $fromName, $toAddr, $subject) {
             $message->from($fromAddr, $fromName);
-            $message->to($toAddr)->subject($subject);
+            $message->to($toAddr);
+            $message->subject($subject);
         });
     }
 }
