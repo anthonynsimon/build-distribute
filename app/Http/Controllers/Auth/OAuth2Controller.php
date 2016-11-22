@@ -23,8 +23,8 @@ class OAuth2Controller extends Controller
     }
 
     protected function handleProviderCallback($provider, Request $request) {
-        if ($request->input('denied') != '') {
-            return redirect()->to('/login')->with('message', 'You did not share your profile data with our social app.');
+        if ($request->input('denied') != '' || $request->input('error') != '') {
+            return redirect()->to('/login')->withErrors(['oauth2_message' => 'Could not login. Please use another method.']);
         }
 
         $providerUser = Socialize::with($provider)->user();
