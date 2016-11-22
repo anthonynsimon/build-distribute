@@ -25,6 +25,13 @@ JWT_SECRET=YOUR_JWT_SECRET_CODE
 GOOGLE_ID=YOUR_GOOGLE_ID
 GOOGLE_SECRET=YOUR_SUPER_SECRET
 GOOGLE_REDIRECT=https://domain.com/oauth2/handle/google
+
+MAIL_DRIVER=smtp
+MAIL_TO_ADDR=recipient1@example.com,recipient2@example.com
+MAIL_FROM_ADDR=no-reply@example.com
+MAIL_FROM_NAME="Your Email Notification Service"
+MAIL_HOST=domain.com
+MAIL_PORT=587
 ```
 
 
