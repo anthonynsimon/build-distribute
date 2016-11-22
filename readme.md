@@ -1,12 +1,32 @@
 # Wolpertinger Build Distribution
 
-iOS/Android build distribution service and web client at Wolpertinger.  
+iOS/Android build distribution service and web client at Wolpertinger Games.  
 Live at: <https://builds.wolpertingergames.com>
 
 **Main use case:**  
 - Manage user's access/roles for projects and builds. New users have no projects assigned to them initially, they require an admin to authorize it for them.
 - Keep track of each build's info and location as the Continuous Integration System pushes them.
 - Can generate a build's Plist and a pre-signed link for direct download from Amazon S3. On Android it just generates the pre-signed link as no Plist is required.
+
+
+## Dotenv file
+Sample .env file for server configuration:
+```
+APP_ENV=production
+APP_DEBUG=false
+APP_KEY=YOUR_APP_KEY
+APP_URL=https:/domain.com
+
+AWS_KEY=YOUR_AMAZON_KEY
+AWS_SECRET=YOUR_AMAZON_SECRET_CODE
+
+JWT_SECRET=YOUR_JWT_SECRET_CODE
+
+GOOGLE_ID=YOUR_GOOGLE_ID
+GOOGLE_SECRET=YOUR_SUPER_SECRET
+GOOGLE_REDIRECT=https://domain.com/oauth2/handle/google
+```
+
 
 ## API Reference
 ### Authentication
@@ -87,7 +107,7 @@ Users should only register via the web client as there is currently no use-case 
 ```
 
 ### DB seed
-For security reasons no DB seed is provided. A sample seed:  
+By default no DB seed is provided. A sample seed:  
 **Users**
 ```
 DB::table('users')->insert([
