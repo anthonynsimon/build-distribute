@@ -160,6 +160,7 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,		
 		Aws\Laravel\AwsServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 
@@ -210,6 +211,8 @@ return [
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 		'AWS' => Aws\Laravel\AwsFacade::class,
 		'ViewService' => App\Providers\ViewServiceProvider::class,
+        'Socialize' => 'Laravel\Socialite\Facades\Socialite',
+
     ],
 
 ];

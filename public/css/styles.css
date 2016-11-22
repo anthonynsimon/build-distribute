@@ -16,13 +16,29 @@ a:hover, a:visited, a:link, a:active {
   margin: 0 auto;
 }
 
+.provider-signin {
+  max-width: 240px;
+  margin: 0 auto;
+}
+
+#signin-google-link {
+	margin: 0 auto;
+	display: block;
+	width: 191px;
+	height: 46px;
+}
+
+#signin-google-link:active {
+	opacity: 0.8;
+}
+
 .single-content {
 	padding-top: 20px;
 }
 
 @media(min-height:768px) {
 	.single-content {
-		padding-top: 160px;
+		padding-top: 120px;
 	}
 }
 
