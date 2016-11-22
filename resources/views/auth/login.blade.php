@@ -32,7 +32,7 @@
 
 	<div class="provider-signin">
 		<a id="signin-google-link" class="img-fluid" href="{{ route('social.redirect', ['provider' => 'google']) }}">
-			<img src="/img/btn_google_signin_light_normal_web.png"></img>
+			<img src="/img/btn_google_signin_light_normal_web@2x.png" class="img-fluid"></img>
 		</a>
 	</div>
 	<br />
