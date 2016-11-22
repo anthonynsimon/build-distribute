@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
 use Config;
+use Auth;
 use App\User;
 use App\SocialiteUser;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Controller;
 use Socialize;
 use Illuminate\Http\Request;
-
 
 class OAuth2Controller extends Controller
 {
@@ -19,10 +19,11 @@ class OAuth2Controller extends Controller
             // Provider not known
             abort(500);
         }
+
         return Socialize::with($provider)->redirect();
     }
 
-    protected function handleProviderCallback($provider, Request $request) {
+    protected function handleProviderCallback($provider, Request $request, AuthController $authController) {
         if ($request->input('denied') != '' || $request->input('error') != '') {
             return redirect()->to('/login')->withErrors(['oauth2_message' => 'Could not login. Please use another method.']);
         }
@@ -48,15 +49,12 @@ class OAuth2Controller extends Controller
         // If a user hasn't been registered yet with this email, create one
         $existingUser = User::where('email', '=', $providerUser->email)->first();
         if (empty($existingUser)) {
-            $newUser = new User;
-            $newUser->email = $email;
-            $newUser->name = $providerUser->name;
-
-            $newUser->password = bcrypt(str_random(16));
-            $newUser->remember_token = str_random(64);
-            $newUser->save();
-
-            $existingUser = $newUser;
+            $name = empty($providerUser->name) ? 'Unknown' : $providerUser->name;
+            $existingUser = $authController->create([
+                'name' => $name,
+                'email' => $email,
+                'password' => str_random(16),
+            ]);
         }
 
         // Associate the social profile the retrieved or newly created user

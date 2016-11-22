@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Config;
+use Mail;
 use App\Role;
 use App\Permission;
 use App\User;
@@ -63,7 +65,7 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    protected function create(array $data)
+    public function create(array $data)
     {
         $user = User::create([
             'name' => $data['name'],
@@ -74,9 +76,30 @@ class AuthController extends Controller
 		$externalRole = Role::where('name', '=', 'externalUser')->first();
 		
 		if ($externalRole) {
-			$user->attachRole($externalRole);
+			$user->role_id = $externalRole->id;
 		}
+
+        $this->notifyRegistration($user);
 		
 		return $user;
+    }
+
+    private function notifyRegistration($user) {
+        $fromAddr = Config::get('mail.from.address');
+        $fromName = Config::get('mail.from.name');
+        $toAddr = Config::get('mail.to');
+
+        // Return early if missing email from and to addresses
+        if (empty($fromAddr) || empty($toAddr)) {
+            return;
+        }
+
+        $subject = 'New user registered!';
+        $data =  ['user' => $user];
+
+        Mail::send('emails.signinNotification', $data, function ($message) use($fromAddr, $fromName, $toAddr, $subject) {
+            $message->from($fromAddr, $fromName);
+            $message->to($toAddr)->subject($subject);
+        });
     }
 }
