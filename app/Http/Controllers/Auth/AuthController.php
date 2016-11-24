@@ -85,6 +85,11 @@ class AuthController extends Controller
     }
 
     private function notifyRegistration($user) {
+        $env = Config::get('app.env');
+        if ($env != 'production') {
+            return;
+        }
+
         $fromAddr = Config::get('mail.from.address');
         $fromName = Config::get('mail.from.name');
         $toAddr = explode(',', Config::get('mail.to'));
