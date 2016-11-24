@@ -64,30 +64,26 @@
 	<div class="site-overlay"></div>
 
 	<!-- Your Content -->
-	<div class="p-x-1">
-		<nav class="navbar navbar-light bg-faded no-border-bottom">
-			<div class="nav navbar-nav pull-xs-left">
-				<a class="navbar-brand" href="/">
-					<span class="hidden-xs-down"><strong>Wolpertinger Games</strong> | </span>
-					Build Distribution
-				</a>
-			</div>
-			<a class="btn active pushy-enable-btn pull-xs-right">&#9776; Menu</a>
-		</nav>
-	</div>
-	<div class="p-x-1">
-		<ul class="breadcrumb no-border-top soft-shadow">
-			<li><a href="{{url('/')}}">Home</a></li>
-			<?php $namedResources = ViewService::getPathNamedResources(); ?>
-			@foreach ($namedResources as $index => $resourceName)
-				@if ($index === count($namedResources) -1)
-				<li class="active">{{ucfirst( $resourceName )}}</li>
-				@else
-				<li><a href="{{url(implode('/', array_slice($namedResources, 0, $index + 1)))}}">{{ucfirst( $resourceName )}}</a></li>
-				@endif
-			@endforeach
-		</ul>
-	</div>
+	<nav class="navbar navbar-light bg-faded no-border-bottom">
+		<div class="nav navbar-nav pull-xs-left">
+			<a class="navbar-brand" href="/">
+				<span class="hidden-xs-down"><strong>Wolpertinger Games</strong> | </span>
+				Build Distribution
+			</a>
+		</div>
+		<a class="btn active pushy-enable-btn pull-xs-right">&#9776; Menu</a>
+	</nav>
+	<ul class="breadcrumb no-border-top soft-shadow">
+		<li><a href="{{url('/')}}">Home</a></li>
+		<?php $namedResources = ViewService::getPathNamedResources(); ?>
+		@foreach ($namedResources as $index => $resourceName)
+			@if ($index === count($namedResources) -1)
+			<li class="active">{{ucfirst( $resourceName )}}</li>
+			@else
+			<li><a href="{{url(implode('/', array_slice($namedResources, 0, $index + 1)))}}">{{ucfirst( $resourceName )}}</a></li>
+			@endif
+		@endforeach
+	</ul>
 
 	<div >
 	@if (Auth::guest())
