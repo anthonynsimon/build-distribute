@@ -25,6 +25,7 @@ class Build extends Model
 		'androidBundleVersionCode',
 		'iphoneBundleVersion',
 		'iphoneTitle',
+        'notes'
     ];
 	
 	public function project()

@@ -34,6 +34,26 @@ class BuildController extends Controller
 			abort(403);
 		}
     
-		return view('common.buildDetail', compact('build'));
+		return view('common.buildDetail', compact('build', 'projectId'));
+	}
+
+	public function patchBuildNote($projectId, $buildId, Request $request)
+	{
+		$build = Build::find($buildId);
+		
+		if (!$build) {
+			abort(404);
+		}
+		
+		if (Gate::denies('adminOnly', $build->project->id)) {
+			abort(403);
+		}
+
+		$note = $request->input('note');
+
+		$build->note = $note;
+		$build->save();
+		
+		return redirect()->back();
 	}
 }

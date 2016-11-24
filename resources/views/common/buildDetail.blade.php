@@ -50,7 +50,29 @@
 				</table>
 			</div>
 		</div>
-		<div class="card-footer text-muted">Received at {{date_format($build->created_at, 'G:i \o\n l jS F Y')}}</div>
+
+		<div class="container-fluid">
+			<div class="alert alert-warning">
+				<strong>Build note:</strong>
+				@if (Auth::user()->can('adminOnly'))
+					<form method="POST" action="{{ url('/projects/' . $projectId . '/builds/' . $build->id . '/note') }}">
+						{!! csrf_field() !!}
+						<fieldset class="form-group">
+							<input name="_method" type="hidden" value="PATCH">
+
+							<textarea id="editableTextArea" readonly type="text" class="form-control notEditing" name="note" placeholder="Click to edit your build note...">{{$build->note}}</textarea>
+							
+							<br />
+							<button id="editableTextAreaSubmit" type="submit" hidden class="btn btn-sm btn-primary">Update note</button>
+							<button id="editableTextAreaCancel" type="button" hidden class="btn btn-sm btn-danger">Cancel changes</button>
+						</fieldset>
+					</form>
+				@else
+					<p class="wrap-text">{{$build->note | "No note available for this build."}}</p>
+				@endif
+			</div>
+		</div>
+		
 	</div>
 @else
 <div class="card card-inverse card-danger">
