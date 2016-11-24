@@ -26,6 +26,7 @@ Route::group(['middleware' => ['web', 'force.ssl']], function () {
 Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
 	Route::resource('/projects', 'ProjectController', ['only' => ['index', 'show', 'store', 'edit', 'update', 'create']]);
 	Route::get('/builds/{buildId}', 'BuildController@show');
+	Route::get('/projects/{projectId}/builds', 'ProjectController@show'); // TODO: don't show in breadcrumbs. Then remove this
 	Route::get('/projects/{projectId}/builds/{buildId}', 'BuildController@nestedShow');
 	Route::patch('/projects/{projectId}/builds/{buildId}/note', 'BuildController@patchBuildNote');
 	Route::get('/downloads/builds/{buildId}', 'InstallLinkController@getAwsBuild');
@@ -37,7 +38,7 @@ Route::group(['middleware' => ['force.ssl']], function () {
 	Route::get('/downloads/plist/{token}', 'InstallLinkController@getAwsPlist');
 });
 
-// Admin only routes
+// Admin only web routes
 Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
 	Route::get('/admin', 'UserAdminController@index');
 	Route::get('/admin/users', 'UserAdminController@indexUsers');
@@ -48,13 +49,14 @@ Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
 	Route::post('/admin/permissions/grant', 'ProjectPermissionController@grantAccess');
 });
 
-// API Access routes
+// API
+// Access routes
 Route::group(['prefix' => '/auth', 'middleware' => 'api.authorize'], function () {
 	Route::post('/authenticate', 'API\APIAuthController@authenticate');
 	Route::get('/me', 'API\APIAuthController@getAuthenticatedUser');
 });
 
-// RESTful API routes
+// Resource routes
 Route::group(['prefix' => '/api/v1', 'middleware' => ['api']], function () {
 	// Resources
 	Route::resource('/builds', 'API\BuildController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
