@@ -68,7 +68,7 @@
 						</fieldset>
 					</form>
 				@else
-					<p class="wrap-text">{{$build->note | "No note available for this build."}}</p>
+					<p class="wrap-text">{{empty($build->note) ? "No note available for this build." : $build->note}}</p>
 				@endif
 			</div>
 		</div>
