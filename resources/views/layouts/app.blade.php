@@ -14,7 +14,7 @@
 
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{url('css/normalize.css')}}">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{url('css/styles.css')}}">
 
 	<!-- CSS Addons -->
@@ -76,42 +76,43 @@
 	<ul class="breadcrumb no-border-top soft-shadow">
 		<li><a href="{{url('/')}}">Home</a></li>
 		<?php $namedResources = ViewService::getPathNamedResources(); ?>
-		@foreach ($namedResources as $index => $resourceName)
-			@if ($index === count($namedResources) -1)
-			<li class="active">{{ucfirst( $resourceName )}}</li>
-			@else
-			<li><a href="{{url(implode('/', array_slice($namedResources, 0, $index + 1)))}}">{{ucfirst( $resourceName )}}</a></li>
-			@endif
-		@endforeach
-	</ul>
+        @foreach ($namedResources as $index => $resourceName)
+            @if ($index === count($namedResources) -1)
+            <li class="active">{{ucfirst( $resourceName )}}</li>
+            @else
+            <li><a href="{{url(implode('/', array_slice($namedResources, 0, $index + 1)))}}">{{ucfirst( $resourceName )}}</a></li>
+            @endif
+        @endforeach
+    </ul>
 
-	<div >
-	@if (Auth::guest())
-		<div class="col-md-12 single-content">
-			@yield('content')
-		</div>
-	@elseif (!Auth::guest() && Request::is('admin/*'))
-		<div class="col-md-12">
-			@yield('mainView')
-		</div>
-	@else
-		<div class="col-md-4 m-b-1">
-			@include('shared.projectMenu') @yield('projectMenu')
-		</div>
-		<div class="col-md-8">
-			@yield('mainView')
-		</div>
-	@endif
-	</div>
+    <div >
+    @if (Auth::guest())
+        <div class="col-md-12 single-content">
+            @yield('content')
+        </div>
+    @elseif (!Auth::guest() && Request::is('admin/*'))
+        <div class="col-md-12">
+            @yield('mainView')
+        </div>
+    @else
+        <div class="col-md-4 m-b-1">
+            @include('shared.projectMenu') @yield('projectMenu')
+        </div>
+        <div class="col-md-8">
+            @yield('mainView')
+        </div>
+    @endif
+    </div>
 
 
-	<!-- JavaScript -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
-	<script src="{{url('js/pushy.min.js')}}"></script>
-	<script src="{{url('js/filterTable.js')}}"></script>
-	<script src="{{url('js/clickToEdit.js')}}"></script>
-	<script src="{{url('js/textAutosize.js')}}"></script>
+    <!-- JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="{{url('js/pushy.min.js')}}"></script>
+    <script src="{{url('js/filterTable.js')}}"></script>
+    <script src="{{url('js/clickToEdit.js')}}"></script>
+    <script src="{{url('js/textAutosize.js')}}"></script>
 </body>
 
 </html>
