@@ -80,4 +80,37 @@
 		<h3 class="card-title">No build found</h3>
 	</div>
 </div>
-@endif @endsection
+@endif
+
+<!-- DEBUG BUILD TAGS -->
+<form method="POST" action="{{ url('/tags') }}">
+	{!! csrf_field() !!}
+	<div class="input-group">
+		<input type="text" class="form-control" name="name" placeholder="Create tag...">
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit">Create</button>
+		</span>
+	</div>
+</form>
+<br />
+<form method="POST" action="{{ url('/builds/' . $build->id . '/tags') }}">
+	{!! csrf_field() !!}
+	<div class="input-group">
+		<select name="tagId" class="form-control">
+			@foreach (ViewService::getAvailableTags() as $key=>$tag)
+			<option value="{{$tag->id}}">{{$tag->name}}</option>
+			@endforeach
+		</select>
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit">Assign</button>
+		</span>
+	</div>
+</form>
+
+@foreach ($build->tags as $key=>$tag)
+<form method="POST" action="{{ url('/builds/' . $build->id . '/tags') }}">
+	<h4><span class="label label-success">{{$tag->name}}</span></h4>
+</form>
+@endforeach
+
+@endsection
