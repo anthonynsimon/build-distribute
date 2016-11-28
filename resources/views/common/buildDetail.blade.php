@@ -97,7 +97,7 @@
 	{!! csrf_field() !!}
 	<div class="input-group">
 		<select name="tagId" class="form-control">
-			@foreach (ViewService::getAvailableTags() as $key=>$tag)
+			@foreach ($availableTags as $key=>$tag)
 			<option value="{{$tag->id}}">{{$tag->name}}</option>
 			@endforeach
 		</select>
@@ -107,10 +107,14 @@
 	</div>
 </form>
 
-@foreach ($build->tags as $key=>$tag)
-<form method="POST" action="{{ url('/builds/' . $build->id . '/tags') }}">
-	<h4><span class="label label-success">{{$tag->name}}</span></h4>
-</form>
+@foreach ($buildTags as $key=>$tag)
+<h4><span class="label label-success">{{$tag->name}}</span>
+	<form method="POST" action="{{ url('/builds/' . $build->id . '/tags/' . $tag->id) }}">
+		{!! csrf_field() !!}
+		<input name="_method" type="hidden" value="DELETE">
+		<button class="btn btn-danger" type="submit">X</button>
+	</form>
+</h4>
 @endforeach
 
 @endsection

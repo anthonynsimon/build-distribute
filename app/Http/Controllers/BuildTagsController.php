@@ -11,12 +11,6 @@ use Illuminate\Http\Request;
 
 class BuildTagsController extends Controller
 {
-    public function index()
-    {
-        dd(Tag::all());
-        return;
-    }
-
     public function createTag(Request $request)
     {
         if (Gate::denies('adminOnly')) {
@@ -94,7 +88,7 @@ class BuildTagsController extends Controller
             abort(404);
         }
 
-        $build->tags()->dettach($tag->id);
+        $build->tags()->detach($tag->id);
 
         return redirect()->back();
     }

@@ -26,8 +26,6 @@ Route::group(['middleware' => ['web', 'force.ssl']], function () {
 Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
     Route::resource('/projects', 'ProjectController', ['only' => ['index', 'show', 'store', 'edit', 'update', 'create']]);
 
-    Route::get('/tags', 'BuildTagsController@index');
-
     Route::post('/tags', 'BuildTagsController@createTag');
     Route::delete('/tags/{tagId}', 'BuildTagsController@deleteTag');
 
