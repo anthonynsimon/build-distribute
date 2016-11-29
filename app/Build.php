@@ -22,19 +22,14 @@ class Build extends Model
         'platform',
         'revision',
         'tag',
-        'androidBundleVersionCode',
-        'iphoneBundleVersion',
-        'iphoneTitle',
+		'androidBundleVersionCode',
+		'iphoneBundleVersion',
+		'iphoneTitle',
         'notes'
     ];
-    
-    public function project()
-    {
-        return $this->belongsTo('App\Project');
-    }
-
-    public function tags()
-    {
-        return $this->belongsToMany('App\Tag', 'build_tag');
-    }
+	
+	public function project()
+	{
+		return $this->belongsTo('App\Project');
+	}
 }
