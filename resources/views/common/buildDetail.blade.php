@@ -21,6 +21,48 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="container-fluid">
+			<br />
+
+			<div class="input-group">
+
+				<form method="POST" action="{{ url('/tags') }}">
+					{!! csrf_field() !!}
+					<input type="text" class="form-control" name="name" placeholder="Create a new tag...">
+					<button hidden class="btn btn-primary" type="submit">Create</button>
+				</form>
+
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Assign existing tag
+					</button>
+					<div class="dropdown-menu dropdown-menu-right">
+						@foreach ($availableTags as $key=>$tag)
+						<form method="POST" action="{{ url('/builds/' . $build->id . '/tags') }}">
+							{!! csrf_field() !!}
+							<input name="tagId" value="{{$tag->id}}" hidden>
+							<button class="dropdown-item" type="submit">{{$tag->name}}</button>
+						</form>
+						@endforeach
+					</div>
+				</div>
+			</div>
+
+			<br />
+
+			@foreach ($buildTags as $key=>$tag)
+			<form method="POST" action="{{ url('/builds/' . $build->id . '/tags/' . $tag->id) }}">
+				{!! csrf_field() !!}
+				<span class="label label-success">{{$tag->name}}
+				<input name="_method" type="hidden" value="DELETE">
+					<button class="btn-danger" type="submit">X</button>
+				</span>
+			</form>
+			@endforeach
+			
+		</div>
+
 		<div class="container-fluid">
 			<br>
 			<div class="table-responsive">
@@ -81,40 +123,5 @@
 	</div>
 </div>
 @endif
-
-<!-- DEBUG BUILD TAGS -->
-<form method="POST" action="{{ url('/tags') }}">
-	{!! csrf_field() !!}
-	<div class="input-group">
-		<input type="text" class="form-control" name="name" placeholder="Create tag...">
-		<span class="input-group-btn">
-			<button class="btn btn-primary" type="submit">Create</button>
-		</span>
-	</div>
-</form>
-<br />
-<form method="POST" action="{{ url('/builds/' . $build->id . '/tags') }}">
-	{!! csrf_field() !!}
-	<div class="input-group">
-		<select name="tagId" class="form-control">
-			@foreach ($availableTags as $key=>$tag)
-			<option value="{{$tag->id}}">{{$tag->name}}</option>
-			@endforeach
-		</select>
-		<span class="input-group-btn">
-			<button class="btn btn-primary" type="submit">Assign</button>
-		</span>
-	</div>
-</form>
-
-@foreach ($buildTags as $key=>$tag)
-<h4><span class="label label-success">{{$tag->name}}</span>
-	<form method="POST" action="{{ url('/builds/' . $build->id . '/tags/' . $tag->id) }}">
-		{!! csrf_field() !!}
-		<input name="_method" type="hidden" value="DELETE">
-		<button class="btn btn-danger" type="submit">X</button>
-	</form>
-</h4>
-@endforeach
 
 @endsection
