@@ -53,8 +53,8 @@
 		</div>
 
 		<div class="container-fluid">
-			<strong>Build note:</strong>
 			@if (Auth::user()->can('adminOnly'))
+				<strong>Build note:</strong>
 				<form method="POST" action="{{ url('/projects/' . $projectId . '/builds/' . $build->id . '/note') }}">
 					{!! csrf_field() !!}
 					<fieldset class="form-group">
@@ -68,7 +68,10 @@
 					</fieldset>
 				</form>
 			@else
+			<div class="alert alert-warning">
+				<strong>Build note:</strong>
 				<p class="wrap-text">{{empty($build->note) ? "No note available for this build." : $build->note}}</p>
+			</div>
 			@endif
 		</div>
 
