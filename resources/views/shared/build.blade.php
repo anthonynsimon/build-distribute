@@ -8,11 +8,13 @@
                     @if (strtolower($build->platform) == 'android')
                     <a href="{!!url('/downloads/builds/'.$build->id)!!}"
                         class="btn btn-success btn-sm">
+                        <i class="fa fa-android"></i>
                         Install
                     </a>
                     @elseif (strtolower($build->platform) == 'ios')
                     <a href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.ViewService::generateUrlSafeToken($build->id))!!}" 
                         class="btn btn-success btn-sm">
+                        <i class="fa fa-apple"></i>
                         Install
                     </a>
                     @endif
