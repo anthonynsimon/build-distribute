@@ -13,70 +13,71 @@ use Illuminate\Contracts\Auth\Guard;
 class InstallLinkController extends Controller
 {
 
-	public function getAwsPlist (Request $request, $token)
-	{
-		$buildId = BuildTokenService::validateTokenAndGetBuildId($token);
-				
-		if (!$buildId) {
-			abort(403);
-		}
-		
-		$build = Build::find($buildId);
-		
-		if (!$build) {
-			abort(404);
-		}
-		
-		// TODO: store link and only generate new one if already expired
-		
-		// Generates plist for iOS devices and uploads to S3
-		$this->generateAndUploadPlist($build);
-		
-		// Activate link in S3 to plist file, also for 60 minutes
-		$link = AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName.'.plist', 60);
-		
-		// Redirect iOS to the plist in S3
-		return redirect()->intended($link);
-	}
-	
-	public function getAwsBuild ($buildId)
-	{
-		$build = Build::find($buildId);
-		
-		if (!$build) {
-			abort(404);
-		}
-		
-		// Defaults to 60 minutes
-		$link = AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName);
-		
-		return redirect()->intended($link);
-	}
-	
-	// iOS wants the plist and the ipa in the same domain under HTTPS
-	function generateAndUploadPlist ($build)
-	{		
-		// Activate Aws Build link for 60 minutes
-		$data = [
-			'{%url%}' => AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName, 60),
-			'{%bundleIdentifier%}' => $build->bundleIdentifier,
-			'{%bundleVersion%}' => $build->iphoneBundleVersion,
-			'{%iphoneTitle%}' => $build->iphoneTitle
-		];
-		
-		// Prepare plist
-		$contents = $this->fillPlist($data);
-		
-		// Upload to S3, overwrite old plist
-		$s3Object = AwsS3Service::uploadObjectWithBody($build->installFolder, $build->installFileName.'.plist', $contents);
-		
-		return $s3Object;
-	}
-	
-	function fillPlist($data) {
-		// Using Laravels template system didn't work.
-		// TODO: make this nicer :)
-		$contents = "<?xml version='1.0' encoding='UTF-8'?>
+    public function getAwsPlist(Request $request, $token)
+    {
+        $buildId = BuildTokenService::validateTokenAndGetBuildId($token);
+                
+        if (!$buildId) {
+            abort(403);
+        }
+        
+        $build = Build::find($buildId);
+        
+        if (!$build) {
+            abort(404);
+        }
+        
+        // TODO: store link and only generate new one if already expired
+        
+        // Generates plist for iOS devices and uploads to S3
+        $this->generateAndUploadPlist($build);
+        
+        // Activate link in S3 to plist file, also for 60 minutes
+        $link = AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName.'.plist', 60);
+        
+        // Redirect iOS to the plist in S3
+        return redirect()->intended($link);
+    }
+    
+    public function getAwsBuild($buildId)
+    {
+        $build = Build::find($buildId);
+        
+        if (!$build) {
+            abort(404);
+        }
+        
+        // Defaults to 60 minutes
+        $link = AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName);
+        
+        return redirect()->intended($link);
+    }
+    
+    // iOS wants the plist and the ipa in the same domain under HTTPS
+    function generateAndUploadPlist($build)
+    {
+        // Activate Aws Build link for 60 minutes
+        $data = [
+            '{%url%}' => AwsS3Service::getPresignedLink($build->installFolder, $build->installFileName, 60),
+            '{%bundleIdentifier%}' => $build->bundleIdentifier,
+            '{%bundleVersion%}' => $build->iphoneBundleVersion,
+            '{%iphoneTitle%}' => $build->iphoneTitle
+        ];
+          
+        // Prepare plist
+        $contents = $this->fillPlist($data);
+        
+        // Upload to S3, overwrite old plist
+        $s3Object = AwsS3Service::uploadObjectWithBody($build->installFolder, $build->installFileName.'.plist', $contents);
+        
+        return $s3Object;
+    }
+    
+    function fillPlist($data)
+    {
+        // Using Laravels template system didn't work.
+        // TODO: make this nicer :)
+        $contents = "<?xml version='1.0' encoding='UTF-8'?>
 					<!DOCTYPE plist PUBLIC ' -//Apple//DTD PLIST 1.0//EN' 'http://www.apple.com/DTDs/PropertyList-1.0.dtd'>
 					<plist version='1.0'>
 					<dict>
@@ -108,10 +109,10 @@ class InstallLinkController extends Controller
 					</dict>
 					</plist>";
 
-		foreach ($data as $key => $value) {
-			$contents = str_replace($key, $value, $contents);
-		}
-		
-		return $contents;
-	}
+        foreach ($data as $key => $value) {
+            $contents = str_replace($key, $value, $contents);
+        }
+        
+        return $contents;
+    }
 }
