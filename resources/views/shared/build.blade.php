@@ -54,7 +54,7 @@
     <div class="container-fluid">
         @if (Auth::user()->can('adminOnly'))
             <strong>Build note:</strong>
-            <form method="POST" action="{{ url('/projects/' . $projectId . '/builds/' . $build->id . '/note') }}">
+            <form method="POST" action="{{ url('/projects/' . $build->project_id . '/builds/' . $build->id . '/note') }}">
                 {!! csrf_field() !!}
                 <fieldset class="form-group">
                     <input name="_method" type="hidden" value="PATCH">
