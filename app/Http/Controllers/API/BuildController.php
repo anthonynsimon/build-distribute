@@ -62,7 +62,7 @@ class BuildController extends Controller
                 'android' => 'android'
             );
         
-            $input->platform = $platformMappings[strtolower($input->platform)];
+            $input['platform'] = $platformMappings[strtolower($input['platform'])];
             
             $project = Project::where('ident', '=', $input['projectIdent'])->first();
             
