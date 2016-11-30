@@ -3,18 +3,21 @@
     <div class="card-header text-white bg-primary">
         <div class="row">
             <div class="col-md-12">
-                <label><h5>Build # {{$build->buildNumber}}</h5></label>
+                <label class="label">
+                    <h5>
+                        {!!$build->platform == 'android' ? '<i class="fa fa-android"></i>' : '<i class="fa fa-apple"></i>'!!}
+                        Build # {{$build->buildNumber}}
+                    </h5>
+                </label>
                 <div class="btn-group pull-xs-right">
                     @if (strtolower($build->platform) == 'android')
                     <a href="{!!url('/downloads/builds/'.$build->id)!!}"
                         class="btn btn-success btn-sm">
-                        <i class="fa fa-android"></i>
                         Install
                     </a>
                     @elseif (strtolower($build->platform) == 'ios')
                     <a href="itms-services://?action=download-manifest&url={!!url('/downloads/plist/'.ViewService::generateUrlSafeToken($build->id))!!}" 
                         class="btn btn-success btn-sm">
-                        <i class="fa fa-apple"></i>
                         Install
                     </a>
                     @endif
