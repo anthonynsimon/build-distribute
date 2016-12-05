@@ -36,6 +36,27 @@ class ProjectController extends Controller
                         
         return view('common.buildsList', compact('project', 'builds'));
     }
+
+    public function headBuildsShow($id)
+    {
+        $project = Project::findByIdOrName($id);
+
+        if (!$project) {
+            abort(404);
+        }
+            
+        if (Gate::denies('viewProject', $project->id)) {
+            abort(403);
+        }
+
+        // TODO: merge this into one query and abstract platform possibilities
+        $androidHead = $project->builds()->orderBy('created_at', 'desc')->where('platform', '=', 'android')->first();
+        $iosHead = $project->builds()->orderBy('created_at', 'desc')->where('platform', '=', 'ios')->first();
+ 
+        $builds = [$iosHead, $androidHead];
+
+        return view('common.buildsDetail', compact('project', 'builds'));
+    }
     
     public function create()
     {
@@ -105,8 +126,6 @@ class ProjectController extends Controller
                 ->withInput($request->all())
                 ->withErrors($validator->errors());
         }
-        
-        
         
         $project->update($request->only('name'));
     

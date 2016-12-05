@@ -35,8 +35,11 @@ class BuildController extends Controller
         if (Gate::denies('viewProject', $build->project->id)) {
             abort(403);
         }
+
+        // View expects an array of builds to display
+        $builds = [$build];
     
-        return view('common.buildDetail', compact('build', 'projectId'));
+        return view('common.buildsDetail', compact('builds', 'projectId'));
     }
 
     public function patchBuildNote($projectId, $buildId, Request $request)

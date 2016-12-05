@@ -27,6 +27,7 @@ Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
     Route::resource('/projects', 'ProjectController', ['only' => ['index', 'show', 'store', 'edit', 'update', 'create']]);
     Route::get('/builds/{buildId}', 'BuildController@show');
     Route::get('/projects/{projectId}/builds', 'ProjectController@show'); // TODO: don't show in breadcrumbs. Then remove this
+    Route::get('/projects/{projectId}/builds/head', 'ProjectController@headBuildsShow');
     Route::get('/projects/{projectId}/builds/{buildId}', 'BuildController@nestedShow');
     Route::patch('/projects/{projectId}/builds/{buildId}/note', 'BuildController@patchBuildNote');
     Route::get('/downloads/builds/{buildId}', 'InstallLinkController@getAwsBuild');
