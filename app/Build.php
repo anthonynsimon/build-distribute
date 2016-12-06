@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Model;
 
 class Build extends Model
 {
     protected $table = 'builds';
+
+    use Taggable;
 
     /**
     * The attributes that are mass assignable.
@@ -22,14 +25,14 @@ class Build extends Model
         'platform',
         'revision',
         'tag',
-		'androidBundleVersionCode',
-		'iphoneBundleVersion',
-		'iphoneTitle',
+        'androidBundleVersionCode',
+        'iphoneBundleVersion',
+        'iphoneTitle',
         'notes'
     ];
-	
-	public function project()
-	{
-		return $this->belongsTo('App\Project');
-	}
+    
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 }

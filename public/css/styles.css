@@ -146,3 +146,96 @@ a.active-inverse:hover {
 	background-color: #373A3C;
 	color: #F7F7F9;
 }
+
+.tag {
+	-webkit-box-align: center;
+		-ms-flex-align: center;
+			align-items: center;
+	background-color: #0275D8;
+	border-radius: 290486px;
+	color: white;
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	-webkit-box-pack: center;
+		-ms-flex-pack: center;
+			justify-content: center;
+	line-height: 16px;
+	vertical-align: top;
+	white-space: nowrap;
+	font-size: 14px;
+	height: 32px;
+	padding-left: 14px;
+	padding-right: 14px;
+}
+ 
+.tag .delete {
+	margin-left: 4px;
+	margin-right: -6px;
+}
+
+
+.delete {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	background-color: rgba(10, 10, 10, 0.1);
+	border: none;
+	border-radius: 290486px;
+	cursor: pointer;
+	display: inline-block;
+	height: 24px;
+	width: 24px;
+	outline: none;
+	position: relative;
+	vertical-align: top;
+}
+
+.delete:before, .delete:after {
+	background-color: white;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	margin-left: -25%;
+	margin-top: -1px;
+	position: absolute;
+	top: 50%;
+	width: 50%;
+}
+
+.delete:before {
+	-webkit-transform: rotate(45deg);
+			transform: rotate(45deg);
+}
+
+.delete:after {
+	-webkit-transform: rotate(-45deg);
+			transform: rotate(-45deg);
+}
+
+.delete:hover {
+	background-color: rgba(10, 10, 10, 0.2);
+}
+
+.tags-container {
+	margin: 20px 0;
+}
+
+.tag-container {
+	margin: 2px;
+	display: inline-block;
+}
+
+.create-tag {
+	margin-top: 20px;
+}
+
+.tag-select-button {
+	background: #0275D8;
+	color: white;
+}

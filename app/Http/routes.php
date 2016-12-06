@@ -31,6 +31,9 @@ Route::group(['middleware' => ['web', 'auth', 'force.ssl']], function () {
     Route::get('/projects/{projectId}/builds/{buildId}', 'BuildController@nestedShow');
     Route::patch('/projects/{projectId}/builds/{buildId}/note', 'BuildController@patchBuildNote');
     Route::get('/downloads/builds/{buildId}', 'InstallLinkController@getAwsBuild');
+
+    Route::post('/projects/{projectId}/builds/{buildId}/tag', 'BuildController@tag');
+    Route::delete('/projects/{projectId}/builds/{buildId}/untag/{tagName}', 'BuildController@untag');
 });
 
 // iOS doesn't hold session cookies for retrieving the plist

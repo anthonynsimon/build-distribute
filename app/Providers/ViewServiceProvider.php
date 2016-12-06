@@ -7,6 +7,7 @@ use Gate;
 use Request;
 use Auth;
 use App\User;
+use App\Build;
 use App\Project;
 use App\ProjectPermission;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,11 @@ class ViewServiceProvider extends ServiceProvider
     public static function generateUrlSafeToken($buildId)
     {
         return BuildTokenService::generateBuildToken($buildId);
+    }
+
+    public static function existingTags()
+    {
+        return Build::existingTags();
     }
 
     public function register()

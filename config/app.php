@@ -91,8 +91,8 @@ return [
     |
     */
     'key' => env('APP_KEY'),
-	
-	'secret' => env('APP_SECRET'),
+    
+    'secret' => env('APP_SECRET'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -156,12 +156,12 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-		App\Providers\ViewServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,		
-		Aws\Laravel\AwsServiceProvider::class,
+        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-
+        Conner\Tagging\Providers\TaggingServiceProvider::class,
     ],
 
     /*
@@ -209,8 +209,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
-		'AWS' => Aws\Laravel\AwsFacade::class,
-		'ViewService' => App\Providers\ViewServiceProvider::class,
+        'AWS' => Aws\Laravel\AwsFacade::class,
+        'ViewService' => App\Providers\ViewServiceProvider::class,
         'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
     ],

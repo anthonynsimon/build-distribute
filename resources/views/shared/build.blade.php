@@ -27,7 +27,59 @@
     </div>
 
     <div class="container-fluid">
-        <br>
+
+        @if (Auth::user()->can('adminOnly'))
+        <div class="input-group create-tag">
+            <form method="POST" action="{{ url('/projects/' . $build->project_id . '/builds/' . $build->id . '/tag') }}">
+                {!! csrf_field() !!}
+                    <input name="_method" type="hidden" value="POST">
+                    <input name="tagName" type="text" class="form-control" placeholder="Type to create a new tag...">
+                    <button type="submit" hidden ></button>
+            </form>
+
+            <div class="input-group-btn">
+                <button type="button" class="btn tag-select-button dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Select an existing tag
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <?php $existingTags = ViewService::existingTags(); ?>
+                    @if (sizeof($existingTags) > 0)
+                        @foreach ($existingTags as $tag)
+                        <form method="POST" action="{{ url('/projects/' . $build->project_id . '/builds/' . $build->id . '/tag') }}">
+                            {!! csrf_field() !!}
+                            <fieldset class="form-group">
+                                <input name="_method" type="hidden" value="POST">
+                                <input name="tagName" type="hidden" value="{{$tag->name}}">
+                                <button type="submit" class="dropdown-item">{{$tag->name}}</button>
+                            </fieldset>
+                        </form>
+                        @endforeach
+                    @else
+                        <p class="dropdown-item">No tags have been created yet</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <div class="tags-container">
+            @foreach ($build->tagNames() as $tagName)
+            <span class="tag-container">
+                <form method="POST" action="{{ url('/projects/' . $build->project_id . '/builds/' . $build->id . '/untag/' . $tagName) }}">
+                    {!! csrf_field() !!}
+                    <input name="_method" type="hidden" value="DELETE">
+                    <span class="tag">
+                        {{$tagName}}
+                        <button type="submit" class="delete"></button>
+                    </span>
+                </form>
+            </span>
+            @endforeach
+        </div>
+        
+    </div>
+
+    <div class="container-fluid">
         <div class="table-responsive">
             <table class="table table-bordered table-sm">
                 <tbody>

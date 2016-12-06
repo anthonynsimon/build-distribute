@@ -61,4 +61,40 @@ class BuildController extends Controller
         
         return redirect()->back();
     }
+
+    public function tag($projectId, $buildId, Request $request)
+    {
+        $build = Build::find($buildId);
+        
+        if (!$build) {
+            abort(404);
+        }
+        
+        if (Gate::denies('adminOnly', $build->project->id)) {
+            abort(403);
+        }
+
+        $tagName = $request->input('tagName');
+
+        $build->tag($tagName);
+        
+        return redirect()->back();
+    }
+
+    public function untag($projectId, $buildId, $tagName)
+    {
+        $build = Build::find($buildId);
+        
+        if (!$build) {
+            abort(404);
+        }
+        
+        if (Gate::denies('adminOnly', $build->project->id)) {
+            abort(403);
+        }
+
+        $build->untag($tagName);
+        
+        return redirect()->back();
+    }
 }
