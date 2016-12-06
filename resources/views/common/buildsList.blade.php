@@ -4,44 +4,58 @@
 	<div class="card-header card-inverse bg-primary">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="btn-group p-l-1 pull-xs-right">
-					<label><a href="{{url('projects/'.$project->name.'/edit')}}" class="btn btn-secondary-outline btn-sm white-outline">Edit Project</a></label>
-				</div>
-				<div class="btn-group p-l-1 pull-xs-right">
-					<label><a href="{{url('projects/'.$project->name.'/builds/head')}}" class="btn btn-secondary-outline btn-sm white-outline">Head builds</a></label>
-				</div>
-				<div id="platformRadio" class="btn-group pull-xs-right" data-toggle="buttons">
-					<label class="btn btn-secondary-outline btn-sm white-outline active">
-						<input type="radio" name="options" id="all" autocomplete="off" checked>All</input>
-					</label>
-					<label class="btn btn-secondary-outline btn-sm white-outline ">
-						<input type="radio" name="options" id="ios" autocomplete="off">iOS</input>
-					</label>
-					<label class="btn btn-secondary-outline btn-sm white-outline ">
-						<input type="radio" name="options" id="android" autocomplete="off">Android</input>
-					</label>
-				</div>
-				<h5 class="text-xs-left">Builds</h5>
-			</div>			
-		</div>	
-	</div>
 
-	<div class="container-fluid p-t-1">
-		<div class="table-responsive">
-			<table id="buildsTable" class="table table-striped table-sm table-bordered">
-				<thead class="thead-default">
-					<tr>
-						<th class="text-xs-center">#</th>
-						<th class="text-xs-center">Revision</th>
-						<th class="text-xs-center">Platform</th>
-						<th class="text-xs-center"></th>
-						<th class="text-xs-center"></th>
-					</tr>
-				</thead>
-				<tbody class="text-xs-center">
-				@if (isset($builds) && count($builds) > 0)
-					@foreach ($builds as $key=>$build)
-					<?php $buildPlatform = $build->platform; ?>
+				<?php $existingTags = ViewService::existingTags(); ?>
+                @if (sizeof($existingTags) > 0)
+                <div class="btn-group p-l-1 pull-xs-right">
+                    <label><button type="button" class="btn btn-secondary-outline btn-sm white-outline dropdown-toggle" data-toggle="dropdown">Filter by tag</button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            @foreach ($existingTags as $tag)
+                            <a href="{{url('projects/'.$project->name.'?tags=' . $tag->name)}}" class="dropdown-item">{{$tag->name}}</a>
+                            @endforeach
+                        </div>
+                    </label>
+                </div>
+                @endif
+                <div class="btn-group p-l-1 pull-xs-right">
+                    <label><a href="{{url('projects/'.$project->name.'/edit')}}" class="btn btn-secondary-outline btn-sm white-outline">Edit Project</a></label>
+                </div>
+                <div class="btn-group p-l-1 pull-xs-right">
+                    <label><a href="{{url('projects/'.$project->name.'/builds/head')}}" class="btn btn-secondary-outline btn-sm white-outline">Head builds</a></label>
+                </div>
+                <div id="platformRadio" class="btn-group pull-xs-right" data-toggle="buttons">
+                    <label class="btn btn-secondary-outline btn-sm white-outline active">
+                        <input type="radio" name="options" id="all" autocomplete="off" checked>All</input>
+                    </label>
+                    <label class="btn btn-secondary-outline btn-sm white-outline ">
+                        <input type="radio" name="options" id="ios" autocomplete="off">iOS</input>
+                    </label>
+                    <label class="btn btn-secondary-outline btn-sm white-outline ">
+                        <input type="radio" name="options" id="android" autocomplete="off">Android</input>
+                    </label>
+                </div>
+                   
+                <h5 class="text-xs-left">Builds</h5>
+            </div>          
+        </div>  
+    </div>
+
+    <div class="container-fluid p-t-1">
+        <div class="table-responsive">
+            <table id="buildsTable" class="table table-striped table-sm table-bordered">
+                <thead class="thead-default">
+                    <tr>
+                        <th class="text-xs-center">#</th>
+                        <th class="text-xs-center">Revision</th>
+                        <th class="text-xs-center">Platform</th>
+                        <th class="text-xs-center"></th>
+                        <th class="text-xs-center"></th>
+                    </tr>
+                </thead>
+                <tbody class="text-xs-center">
+                @if (isset($builds) && count($builds) > 0)
+                    @foreach ($builds as $key=>$build)
+                    <?php $buildPlatform = $build->platform; ?>
                     <tr id="{{$buildPlatform}}">
                         <td>{{$build->buildNumber or 'N/A'}}</td>
                         <td>{{$build->revision or 'N/A'}}</td>

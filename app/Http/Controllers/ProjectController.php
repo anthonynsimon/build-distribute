@@ -20,7 +20,7 @@ class ProjectController extends Controller
         return view('common.buildsList');
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $project = Project::findByIdOrName($id);
         
@@ -31,9 +31,17 @@ class ProjectController extends Controller
         if (Gate::denies('viewProject', $project->id)) {
             abort(403);
         }
-                
-        $builds = $project->builds()->orderBy('created_at', 'desc')->get();
-                        
+
+        $tags = $request->input('tags');
+
+        $builds = null;
+
+        if (!empty($tags)) {
+            $builds = Build::withAllTags($tags)->orderBy('created_at', 'desc')->get();
+        } else {
+            $builds = $project->builds()->orderBy('created_at', 'desc')->get();
+        }
+                                        
         return view('common.buildsList', compact('project', 'builds'));
     }
 

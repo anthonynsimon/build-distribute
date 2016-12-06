@@ -70,7 +70,9 @@
                     <input name="_method" type="hidden" value="DELETE">
                     <span class="tag">
                         {{$tagName}}
+                        @if (Auth::user()->can('adminOnly'))
                         <button type="submit" class="delete"></button>
+                        @endif
                     </span>
                 </form>
             </span>
