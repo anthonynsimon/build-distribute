@@ -13,8 +13,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
 {
-
-    
     public static function getPathNamedResources()
     {
         $pathElements = array_filter(explode('/', Request::path()));
