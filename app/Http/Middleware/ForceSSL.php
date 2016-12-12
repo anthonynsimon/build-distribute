@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Middleware;
 
@@ -8,10 +8,10 @@ class ForceSSL
 {
     public function handle($request, Closure $next)
     {
-		if (!$request->secure() && env('APP_ENV') !== 'local') {
-			return redirect()->secure($request->getRequestUri());
-		}
+        if (!$request->secure() && env('APP_ENV') !== 'local') {
+            return redirect()->secure($request->getRequestUri());
+        }
 
-		return $next($request); 
+        return $next($request);
     }
 }

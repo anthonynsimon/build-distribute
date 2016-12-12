@@ -18,9 +18,9 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
-
+ 
         'api' => [
-            'throttle:60,1',
+            'throttle',
             'jwt.auth'
         ],
     ];
@@ -32,7 +32,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'jwt.auth' => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
         'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
-        'force.ssl' => \App\Http\Middleware\ForceSSL::class,
-        'api.authorize' => \App\Http\Middleware\ApiAuthorize::class,
+        'force.ssl' => \App\Http\Middleware\ForceSSL::class
     ];
 }

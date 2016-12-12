@@ -61,7 +61,7 @@ Route::group(['prefix' => '/auth', 'middleware' => 'api.authorize'], function ()
 });
 
 // Resource routes
-Route::group(['prefix' => '/api/v1', 'middleware' => ['api']], function () {
+Route::group(['prefix' => '/api/v1', 'middleware' => 'api'], function () {
     // Resources
     Route::resource('/builds', 'API\BuildController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
     Route::resource('/projects', 'API\ProjectController', ['only' => ['index', 'show', 'store', 'update', 'destroy']]);
