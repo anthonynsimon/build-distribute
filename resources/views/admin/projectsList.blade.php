@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('mainView')
 @if (isset($projects) && count($projects) > 0)
 @foreach ($projects as $key=>$project)
-@include('shared.grantAccessModal') @yield('grantAccessModal'.$project->id)
+@include('admin.grantAccessModal') @yield('grantAccessModal'.$project->id)
 <div class="card">
 	<div class="card-header text-white card-inverse card-primary">
 		<div class="row">
@@ -34,27 +34,27 @@
 				</thead>
 				<tbody class="text-xs-center">
 				<?php $projectUsers = $project->users(); ?>
-				@if (isset($projectUsers) && count($projectUsers) > 0)
-				@foreach ($projectUsers as $key=>$user)
-					<tr>
-						<td>{{$user ? $user->name : 'N/A'}}</td>
-						<td>{{$user ? $user->email : 'N/A'}}</td>
-						<td>-</td>
-						<td>-</td>
-					</tr>
-				@endforeach
-				@else
-					<tr>
-						<td>-</td>
-						<td>-</td>
-						<td>-</td>
-						<td>-</td>
-					</tr>
-				@endif
-				</tbody>
-			</table>
-		</div>
-	</div>
+                @if (isset($projectUsers) && count($projectUsers) > 0)
+                @foreach ($projectUsers as $key=>$user)
+                    <tr>
+                        <td>{{$user ? $user->name : 'N/A'}}</td>
+                        <td>{{$user ? $user->email : 'N/A'}}</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                @endforeach
+                @else
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 @endforeach
 @endif

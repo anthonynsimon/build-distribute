@@ -17,7 +17,7 @@ class ProjectController extends Controller
     
     public function index()
     {
-        return view('common.buildsList');
+        return view('builds.buildList');
     }
 
     public function show($id, Request $request)
@@ -42,7 +42,7 @@ class ProjectController extends Controller
             $builds = $project->builds()->orderBy('created_at', 'desc')->get();
         }
                                         
-        return view('common.buildsList', compact('project', 'builds'));
+        return view('builds.buildList', compact('project', 'builds'));
     }
 
     public function headBuildsShow($id)
@@ -63,7 +63,7 @@ class ProjectController extends Controller
  
         $builds = [$iosHead, $androidHead];
 
-        return view('common.buildsDetail', compact('project', 'builds'));
+        return view('builds.buildDetail', compact('project', 'builds'));
     }
     
     public function create()
@@ -72,7 +72,7 @@ class ProjectController extends Controller
             abort(403);
         }
         
-        return view('common.createProject');
+        return view('projects.createProject');
     }
     
     public function edit(Request $request)
@@ -84,7 +84,7 @@ class ProjectController extends Controller
             abort(404);
         }
         
-        return view('common.editProject', compact('project'));
+        return view('projects.editProject', compact('project'));
     }
     
     public function store(Request $request)

@@ -18,6 +18,6 @@ class HomeController extends Controller
         if (!Auth::guest()) {
             return redirect('/projects');
         }
-        return view('common.buildsList');
+        return view('builds.buildList');
     }
 }

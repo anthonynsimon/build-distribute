@@ -1,6 +1,6 @@
 @extends('layouts.app') @section('mainView')
 @if (isset($builds) && count($builds) > 0)
-    @each('shared.build', $builds, 'build')
+    @each('builds.build', $builds, 'build')
 @else
 <div class="card card-inverse card-danger">
     <div class="card-block">

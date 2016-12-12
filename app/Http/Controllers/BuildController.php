@@ -39,7 +39,7 @@ class BuildController extends Controller
         // View expects an array of builds to display
         $builds = [$build];
     
-        return view('common.buildsDetail', compact('builds', 'projectId'));
+        return view('builds.buildDetail', compact('builds', 'projectId'));
     }
 
     public function patchBuildNote($projectId, $buildId, Request $request)

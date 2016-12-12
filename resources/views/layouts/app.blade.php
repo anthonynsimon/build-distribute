@@ -19,7 +19,6 @@
 
 	<!-- CSS Addons -->
 	<link rel="stylesheet" href="{{url('css/pushy.css')}}">
-
 </head>
 
 <body id="app-layout">
@@ -96,7 +95,7 @@
         </div>
     @else
         <div class="col-md-4 m-b-1">
-            @include('shared.projectMenu') @yield('projectMenu')
+            @include('projects.projectMenu') @yield('projectMenu')
         </div>
         <div class="col-md-8">
             @yield('mainView')
