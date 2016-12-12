@@ -34,6 +34,14 @@ MAIL_HOST=domain.com
 MAIL_PORT=587
 ```
 
+## TODO
+
+- [ ] Switch to Client Credentials Token for API Clients.
+- [ ] Conform OAuth2 Authorization Provider for Internal API.
+- [ ] Implement API v2 to reflect new features.
+- [ ] Request secrets dynamically from a secure config server.
+- [ ] Add unit, integration and (if practical) e2e tests.
+
 
 ## API Reference
 ### Authentication
