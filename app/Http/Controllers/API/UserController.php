@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Exceptions\CustomException;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -18,7 +17,7 @@ class UserController extends Controller
             
             return response()->json($users, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]
@@ -33,7 +32,7 @@ class UserController extends Controller
             
             return response()->json($user, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]

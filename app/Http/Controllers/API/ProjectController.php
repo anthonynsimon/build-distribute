@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Exceptions\CustomException;
 use Validator;
 use Illuminate\Http\Request;
 use App\Project;
@@ -18,7 +17,7 @@ class ProjectController extends Controller
             
             return response()->json($projects, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]
@@ -46,7 +45,7 @@ class ProjectController extends Controller
             
             return response()->json($project, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]
@@ -60,10 +59,10 @@ class ProjectController extends Controller
             $project = Project::findByIdOrName($id);
             
             if (!$project) {
-                throw new CustomException("Provided project id or name not found", 404);
+                throw new \Exception("Provided project id or name not found", 404);
             }
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e->getCode();
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]
@@ -84,7 +83,7 @@ class ProjectController extends Controller
             
             return response()->json($project, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]
@@ -103,7 +102,7 @@ class ProjectController extends Controller
             
             return response()->json($project, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             
             return response()->json([
                 'errors' => ['message' => $e->getMessage()]

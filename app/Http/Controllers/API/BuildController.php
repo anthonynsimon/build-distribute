@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Exceptions\CustomException;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -67,7 +66,7 @@ class BuildController extends Controller
             $project = Project::where('ident', '=', $input['projectIdent'])->first();
             
             if (!$project) {
-                throw new CustomException("Provided project id or name not found, "
+                throw new \Exception("Provided project id or name not found, "
                                             ."you must specify an existing project "
                                             ."to associate with this built", 404);
             }
@@ -76,7 +75,7 @@ class BuildController extends Controller
 
             return response()->json($build, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             return response()->json(['errors' => ['message' => $e->getMessage()]], $statusCode);
         }
     }
@@ -87,12 +86,12 @@ class BuildController extends Controller
             $build = Build::find($id);
             
             if (!$build) {
-                throw new CustomException("Provided build id not found", 404);
+                throw new \Exception("Provided build id not found", 404);
             }
             
             return response()->json($build, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             return response()->json(['errors' => ['message' => $e->getMessage()]], $statusCode);
         }
     }
@@ -103,12 +102,12 @@ class BuildController extends Controller
             $build = Build::find($id);
             
             if (!$build) {
-                throw new CustomException("Provided build id not found", 404);
+                throw new \Exception("Provided build id not found", 404);
             }
             
             return response()->json($build->project, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             return response()->json(['errors' => ['message' => $e->getMessage()]], $statusCode);
         }
     }
@@ -119,14 +118,14 @@ class BuildController extends Controller
             $build = Build::find($id);
             
             if (!$build) {
-                throw new CustomException("Provided build id not found", 404);
+                throw new \Exception("Provided build id not found", 404);
             }
             
             $build->update($request->all());
             
             return response()->json($build, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             return response()->json(['errors' => ['message' => $e->getMessage()]], $statusCode);
         }
     }
@@ -137,14 +136,14 @@ class BuildController extends Controller
             $build = Build::find($id);
             
             if (!$build) {
-                throw new CustomException("Provided build id not found", 404);
+                throw new \Exception("Provided build id not found", 404);
             }
             
             $build->delete();
             
             return response()->json($build, 200);
         } catch (\Exception $e) {
-            $statusCode = $e instanceof CustomException ? $e->getCode() : 500;
+            $statusCode = $e instanceof Exception ? $e->getCode() : 500;
             return response()->json(['errors' => ['message' => $e->getMessage()]], $statusCode);
         }
     }
