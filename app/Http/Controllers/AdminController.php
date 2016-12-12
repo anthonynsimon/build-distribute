@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\Guard;
 
 class AdminController extends Controller
 {
+    
     public function index()
     {
         return redirect('/admin/users');

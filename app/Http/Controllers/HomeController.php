@@ -12,7 +12,6 @@ use Illuminate\Contracts\Auth\Guard;
 class HomeController extends Controller
 {
 
- 
     public static function index(Request $request, Guard $auth)
     {
         if (!Auth::guest()) {

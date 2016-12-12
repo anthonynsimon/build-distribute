@@ -11,7 +11,6 @@ use Illuminate\Contracts\Auth\Guard;
 
 class BuildController extends Controller
 {
-
     
     public function show($buildId)
     {

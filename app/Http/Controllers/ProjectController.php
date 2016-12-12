@@ -13,7 +13,6 @@ use Illuminate\Contracts\Auth\Guard;
 
 class ProjectController extends Controller
 {
-
     
     public function index()
     {
