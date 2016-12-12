@@ -20,12 +20,14 @@ class Kernel extends HttpKernel
         ],
  
         'api' => [
+            'jwt.auth',
+            'adminOnly',
             'throttle',
-            'jwt.auth'
         ],
     ];
 
     protected $routeMiddleware = [
+        'adminOnly' => \App\Http\Middleware\AdminOnly::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
