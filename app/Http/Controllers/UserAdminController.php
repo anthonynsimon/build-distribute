@@ -78,6 +78,7 @@ class UserAdminController extends Controller
             abort(403);
         }
         
+        
         $user->deleteAndCascade();
         
         return redirect('/admin/users');
